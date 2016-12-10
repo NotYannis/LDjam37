@@ -25,21 +25,19 @@ public class ActiveObject : QuestionDataScript {
     {
         for(int i = 0; i < questions.Count; ++i)
         {
-            List<GameObject> currentListbutton = mainQuestions.buttonList;
+            int index = mainQuestions.currentQuestions.Count;
             GameObject button = Instantiate(mainQuestions.buttonPrefab) as GameObject;
-            currentListbutton.Add(button);
             
-            button.GetComponent<Button>().onClick.RemoveAllListeners();
-            button.GetComponent<Button>().onClick.AddListener(() => { ActivateQuestion(currentButtonIndex); });
+            button.GetComponent<Button>().onClick.AddListener(() => { mainQuestions.ActivateQuestion(index); });
             button.transform.SetParent(GameObject.Find("MainInterface/Menu/Scroll View/Viewport/Content").GetComponent<Transform>());
 
-            float buttonYPos = startY - (currentListbutton.Count * (button.GetComponent<RectTransform>().rect.height + 5));
+            float buttonYPos = startY - (mainQuestions.buttonList.Count * (button.GetComponent<RectTransform>().rect.height + 5));
             button.transform.localScale = new Vector3(1, 1, 1);
             button.GetComponentInChildren<Text>().text = questions[i].question;
             button.GetComponent<RectTransform>().localPosition = new Vector3(button.GetComponent<RectTransform>().rect.width / 2 + 12, buttonYPos, 0.0f);
 
+            mainQuestions.buttonList.Add(button);
             mainQuestions.currentQuestions.Add(questions[i]);
-            currentButtonIndex++;
         }
     }
 

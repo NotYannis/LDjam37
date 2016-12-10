@@ -26,7 +26,7 @@ public class QuestionDataScript : MonoBehaviour {
     public List<GameObject> buttonList;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         buttonList = new List<GameObject>();
 
         interfaceScript = GetComponent<MainInterfaceScript>();
@@ -51,8 +51,6 @@ public class QuestionDataScript : MonoBehaviour {
 
     public void ActivateQuestion(int index)
     {
-        Debug.Log(index);
-
         Question currentQuestion = currentQuestions[index];
 
         interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
@@ -60,11 +58,26 @@ public class QuestionDataScript : MonoBehaviour {
         {
             GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatingObject);
         }
-        Debug.Log("kiki");
-        currentQuestions.Remove(currentQuestion);
-        Debug.Log("koukou");
-        buttonList.RemoveAt(index);
 
-//            Destroy(target);
+        currentQuestions.Remove(currentQuestion);
+
+        DestroyButton(buttonList[index], index);
+    }
+
+    public void DestroyButton(GameObject button, int index)
+    {
+        Destroy(button);
+        buttonList.Remove(button);
+        for(int i = index; i < buttonList.Count; ++i)
+        {
+            buttonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
+            buttonList[i].GetComponent<Button>().onClick.AddListener(() => { ActivateQuestion(index); });
+            Vector3 pos = buttonList[i].GetComponent<RectTransform>().localPosition;
+            pos = new Vector3(
+                    pos.x,
+                    pos.y + buttonList[i].GetComponent<RectTransform>().rect.height + 5,
+                    pos.z);
+            buttonList[i].GetComponent<RectTransform>().localPosition = pos;
+        }
     }
 }
