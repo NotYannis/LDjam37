@@ -3,25 +3,27 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class MainInterfaceScript : MonoBehaviour {
+    SoundEffectsHelper soundEffects;
 
+    GameObject menu;
     GameObject ouijaBoard;
     GameObject planchette;
 
-    Vector3 toPositionOuija;
+    Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
 
-    bool ouijaSlideOn;
+    bool menuSlide;
+    bool isMenuOpen;
     bool spiritTalking;
-    bool ouijaSlideOff;
 
     public float planchetteMoveSpeed;
-    public float ouijaMoveSpeed;
+    public float menuMoveSpeed;
 
     public float spiritThinkingTime;
     private float spiritThinkingCooldown;
 
-    public float ouijaStayTime;
-    private float ouijaStayCooldown;
+    public float menuStayTime;
+    private float menuStayCooldown;
 
     private int xPeriod = 1;
     private int yPeriod = 1;
@@ -31,33 +33,22 @@ public class MainInterfaceScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        ouijaBoard = GameObject.Find("MainInterface/OuijaBoard");
-        planchette = GameObject.Find("MainInterface/OuijaBoard/Planchette");
+        menu = GameObject.Find("MainInterface/Menu");
+        ouijaBoard = GameObject.Find("MainInterface/Menu/OuijaBoard");
+        planchette = GameObject.Find("MainInterface/Menu/OuijaBoard/Planchette");
 
-        toPositionOuija = new Vector3(0, -261, 0);
+        if (GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>() != null)
+        {
+            soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
+        }
+
+        toPositionMenu = new Vector3(0, -289, 0);
         spiritThinkingCooldown = spiritThinkingTime;
-        ouijaStayCooldown = ouijaStayTime;
-
-        OnOuijaCall(true, false);
+        menuStayCooldown = menuStayTime;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //Slide the ouija board on the game
-        if (ouijaSlideOn)
-        {
-            float speed = ouijaMoveSpeed * Time.deltaTime;
-            Vector3 ouijaBoardPosition = ouijaBoard.GetComponent<RectTransform>().localPosition;
-
-            ouijaBoard.GetComponent<RectTransform>().localPosition = Vector3.MoveTowards(ouijaBoardPosition, toPositionOuija, speed);
-            if (ouijaBoardPosition == toPositionOuija)
-            {
-                spiritTalking = true;
-                ouijaSlideOn = false;
-                toPositionOuija = new Vector3(0, -500, 0);
-            }
-        }
-
         //Move the planchette
         if (spiritTalking)
         {
@@ -92,42 +83,41 @@ public class MainInterfaceScript : MonoBehaviour {
                 if(planchette.GetComponent<RectTransform>().localPosition == toPositionPlanchette)
                 {
                     spiritTalking = false;
-                    ouijaSlideOff = true;
                     spiritThinkingCooldown = spiritThinkingTime;
                 }
             }
         }
 
-
-        if (ouijaSlideOff)
+        //Slide the menu on the game
+        if (menuSlide)
         {
-            if(ouijaStayCooldown >= 0.0f)
-            {
-                ouijaStayCooldown -= Time.deltaTime;
-            }
-            else
-            {
-                float speed = ouijaMoveSpeed * Time.deltaTime;
-                Vector3 ouijaBoardPosition = ouijaBoard.GetComponent<RectTransform>().localPosition;
+            float speed = menuMoveSpeed * Time.deltaTime;
+            Vector3 menuPosition = menu.GetComponent<RectTransform>().localPosition;
 
-                ouijaBoard.GetComponent<RectTransform>().localPosition = Vector3.MoveTowards(ouijaBoardPosition, toPositionOuija, speed);
-                if (ouijaBoard.GetComponent<RectTransform>().localPosition == toPositionOuija)
-                {
-                    ouijaSlideOff = false;
-                    toPositionOuija = new Vector3(0, -261, 0);
-                    ouijaStayCooldown = ouijaStayTime;
-                }
+            menu.GetComponent<RectTransform>().localPosition = Vector3.MoveTowards(menuPosition, toPositionMenu, speed);
+            if (menuPosition == toPositionMenu)
+            {
+                menuSlide = false;
             }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnOuijaCall(false, false);
         }
 	}
 
+    public void OnMenuCall() {
+        if (isMenuOpen)
+        {
+            toPositionMenu = new Vector3(0, -787, 0);
+        }
+        else
+        {
+            toPositionMenu = new Vector3(0, -289, 0);
+        }
+        isMenuOpen = !isMenuOpen;
+        menuSlide = true;
+    }
+
     public void OnOuijaCall(bool hasAnswer, bool isAffirmative)
     {
+        soundEffects.MakeAnswerSpiritSound(Camera.main.transform.position);
         if (hasAnswer)
         {
             if (isAffirmative)
@@ -138,12 +128,11 @@ public class MainInterfaceScript : MonoBehaviour {
             {
                 toPositionPlanchette = new Vector3(178, 114, 0);
             }
-            ouijaSlideOn = true;
+            spiritTalking = true;
         }
         else
         {
             toPositionPlanchette = new Vector3(0, -175, 0);
-            ouijaSlideOn = true;
         }
 
         //Initialize planchette position

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Animator))]
 public class InteractionObject : MonoBehaviour {
 
 	// Use this for initialization
@@ -12,4 +13,18 @@ public class InteractionObject : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void playAnimation()
+    {
+        Animator anim = GetComponent<Animator>();
+        if(anim != null)
+        {
+            anim.SetBool("animate", true);
+        }
+        if (GetComponent<ActiveObject>().enabled)
+        {
+            GetComponent<ActiveObject>().AddQuestionToButtonList();
+        }
+    }
+
 }
