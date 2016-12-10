@@ -4,26 +4,25 @@ using UnityEngine.UI;
 
 public class MainInterfaceScript : MonoBehaviour {
     SoundEffectsHelper soundEffects;
+    HangManScript hangMan;
 
     GameObject menu;
-    GameObject ouijaBoard;
     GameObject planchette;
 
     Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
 
+    bool addHangManPart;
     bool menuSlide;
     bool isMenuOpen;
-    bool spiritTalking;
+    public bool spiritTalking;
+
 
     public float planchetteMoveSpeed;
     public float menuMoveSpeed;
 
     public float spiritThinkingTime;
     private float spiritThinkingCooldown;
-
-    public float menuStayTime;
-    private float menuStayCooldown;
 
     private int xPeriod = 1;
     private int yPeriod = 1;
@@ -34,8 +33,8 @@ public class MainInterfaceScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         menu = GameObject.Find("MainInterface/Menu");
-        ouijaBoard = GameObject.Find("MainInterface/Menu/OuijaBoard");
         planchette = GameObject.Find("MainInterface/Menu/OuijaBoard/Planchette");
+        hangMan = GameObject.Find("MainInterface/HangMan").GetComponent<HangManScript>();
 
         if (GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>() != null)
         {
@@ -44,7 +43,6 @@ public class MainInterfaceScript : MonoBehaviour {
 
         toPositionMenu = new Vector3(0, -289, 0);
         spiritThinkingCooldown = spiritThinkingTime;
-        menuStayCooldown = menuStayTime;
     }
 	
 	// Update is called once per frame
@@ -84,6 +82,11 @@ public class MainInterfaceScript : MonoBehaviour {
                 {
                     spiritTalking = false;
                     spiritThinkingCooldown = spiritThinkingTime;
+                    if (addHangManPart)
+                    {
+                        hangMan.EnableHangManPart();
+                        addHangManPart = false;
+                    }
                 }
             }
         }
@@ -133,6 +136,8 @@ public class MainInterfaceScript : MonoBehaviour {
         else
         {
             toPositionPlanchette = new Vector3(0, -175, 0);
+            spiritTalking = true;
+            addHangManPart = true;
         }
 
         //Initialize planchette position

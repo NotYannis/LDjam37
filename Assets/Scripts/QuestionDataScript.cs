@@ -51,17 +51,20 @@ public class QuestionDataScript : MonoBehaviour {
 
     public void ActivateQuestion(int index)
     {
-        Question currentQuestion = currentQuestions[index];
-
-        interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
-        if(currentQuestion.activatingObject != null)
+        if (!interfaceScript.spiritTalking)
         {
-            GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatingObject);
+            Question currentQuestion = currentQuestions[index];
+
+            interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
+            if(currentQuestion.activatingObject != null)
+            {
+                GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatingObject);
+            }
+
+            currentQuestions.Remove(currentQuestion);
+
+            DestroyButton(buttonList[index], index);
         }
-
-        currentQuestions.Remove(currentQuestion);
-
-        DestroyButton(buttonList[index], index);
     }
 
     public void DestroyButton(GameObject button, int index)

@@ -24,6 +24,7 @@ public class InteractionObject : MonoBehaviour {
         if (GetComponent<ActiveObject>().enabled)
         {
             GetComponent<ActiveObject>().AddQuestionToButtonList();
+            GetComponent<ActiveObject>().enabled = false;
         }
     }
 

@@ -9,7 +9,7 @@ public class SoundEffectsHelper : MonoBehaviour
     /// </summary>
     public static SoundEffectsHelper Instance;
 
-    public AudioClip[] answerSpiritSounds = new AudioClip[3];
+    public AudioSource[] answerSpiritSounds = new AudioSource[3];
 
     void Awake()
     {
@@ -24,16 +24,25 @@ public class SoundEffectsHelper : MonoBehaviour
     public void MakeAnswerSpiritSound(Vector3 position)
     {
         int sound = Random.Range(0, 3);
-        MakeSound(answerSpiritSounds[sound], position);
+        MakeSound(answerSpiritSounds[sound], position, true);
     }
 
     /// <summary>
     /// Play a given sound
     /// </summary>
     /// <param name="originalClip"></param>
-    private void MakeSound(AudioClip originalClip, Vector3 position)
+    /// <param name="position"></param>
+
+    private void MakeSound(AudioSource originalClip, Vector3 position, bool soundIn2D)
     {
-        // As it is not 3D audio clip, position doesn't matter.
-        AudioSource.PlayClipAtPoint(originalClip, position);
+        if (soundIn2D){
+            GameObject soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
+            Destroy(soundPlaying);
+        }
+        else
+        {
+            GameObject soundPlaying = Instantiate(originalClip, position, Quaternion.identity, Camera.main.transform) as GameObject;
+        }
+        //AudioSource.PlayClipAtPoint(originalClip., position);
     }
 }

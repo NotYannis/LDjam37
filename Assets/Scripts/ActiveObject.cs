@@ -9,7 +9,6 @@ public class ActiveObject : QuestionDataScript {
     public List<Question> questions;
 
     int startY = -20;
-    int currentButtonIndex = 0;
 
     // Use this for initialization
     void Start () {

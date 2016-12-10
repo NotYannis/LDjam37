@@ -7,7 +7,7 @@ public class CameraScript : MonoBehaviour {
 
     private Vector3[] viewPositions = new Vector3[4];
 
-    private int currentView;
+    private int currentView = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +25,7 @@ public class CameraScript : MonoBehaviour {
             viewPositions[i] = view;
         }
 
-        Camera.main.transform.position = viewPositions[0];
+        Camera.main.transform.position = viewPositions[1];
     }
 	
 	// Update is called once per frame
