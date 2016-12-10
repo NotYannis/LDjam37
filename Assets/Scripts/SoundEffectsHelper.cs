@@ -10,6 +10,13 @@ public class SoundEffectsHelper : MonoBehaviour
     public static SoundEffectsHelper Instance;
 
     public AudioSource[] answerSpiritSounds = new AudioSource[3];
+    public AudioSource[] droneSounds = new AudioSource[3];
+    public AudioSource questionUnlock;
+    public AudioSource wrongQuestion;
+    public AudioSource deadSound;
+
+
+
 
     void Awake()
     {
@@ -27,6 +34,28 @@ public class SoundEffectsHelper : MonoBehaviour
         MakeSound(answerSpiritSounds[sound], position, true);
     }
 
+    public void MakeDroneSound(Vector3 position)
+    {
+        int sound = Random.Range(0, 3);
+        MakeSound(droneSounds[sound], position, true);
+    }
+
+    public void MakeWrongQuestionSound(Vector3 position)
+    {
+        MakeSound(wrongQuestion, position, true);
+    }
+
+    public void MakeQuestionUnlockSound(Vector3 position)
+    {
+        MakeSound(questionUnlock, position, true);
+    }
+
+    public void MakeDeadSound(Vector3 position)
+    {
+        MakeSound(deadSound, position, true);
+    }
+
+
     /// <summary>
     /// Play a given sound
     /// </summary>
@@ -37,12 +66,12 @@ public class SoundEffectsHelper : MonoBehaviour
     {
         if (soundIn2D){
             GameObject soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
+            Debug.Log(soundPlaying.name);
             Destroy(soundPlaying);
         }
         else
         {
             GameObject soundPlaying = Instantiate(originalClip, position, Quaternion.identity, Camera.main.transform) as GameObject;
         }
-        //AudioSource.PlayClipAtPoint(originalClip., position);
     }
 }

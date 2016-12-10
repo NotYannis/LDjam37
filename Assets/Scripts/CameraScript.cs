@@ -4,13 +4,16 @@ using System.Collections;
 
 
 public class CameraScript : MonoBehaviour {
-
+    private SoundEffectsHelper soundEffects;
     private Vector3[] viewPositions = new Vector3[4];
 
     private int currentView = 1;
+    public int droneSoundProb;
 
 	// Use this for initialization
 	void Start () {
+        soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
+
         GameObject[] views = new GameObject[4];
         views[0] = GameObject.Find("FirstView");
         views[1] = GameObject.Find("SecondView");
@@ -35,6 +38,7 @@ public class CameraScript : MonoBehaviour {
 
     public void GoRight()
     {
+        if (Random.Range(0, droneSoundProb) == 1) soundEffects.MakeDroneSound(Camera.main.transform.position);
         ResetSelected();
 
         currentView++;
@@ -49,6 +53,7 @@ public class CameraScript : MonoBehaviour {
 
     public void GoLeft()
     {
+        if (Random.Range(0, droneSoundProb) == 1) soundEffects.MakeDroneSound(Camera.main.transform.position);
         ResetSelected();
 
         currentView--;
@@ -63,6 +68,7 @@ public class CameraScript : MonoBehaviour {
 
     public void GoDown()
     {
+        if (Random.Range(0, droneSoundProb) == 1) soundEffects.MakeDroneSound(Camera.main.transform.position);
         Camera.main.transform.position = viewPositions[3];
         GameObject.Find("MainInterface/NavigationButtons/Left").SetActive(false);
         GameObject.Find("MainInterface/NavigationButtons/Right").SetActive(false);
@@ -72,6 +78,7 @@ public class CameraScript : MonoBehaviour {
 
     public void GoUp()
     {
+        if (Random.Range(0, droneSoundProb) == 1) soundEffects.MakeDroneSound(Camera.main.transform.position);
         Camera.main.transform.position = viewPositions[currentView];
         GameObject.Find("MainInterface/NavigationButtons/Left").SetActive(true);
         GameObject.Find("MainInterface/NavigationButtons/Right").SetActive(true);

@@ -86,6 +86,7 @@ public class MainInterfaceScript : MonoBehaviour {
                     {
                         hangMan.EnableHangManPart();
                         addHangManPart = false;
+                        soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
                     }
                 }
             }
@@ -120,7 +121,6 @@ public class MainInterfaceScript : MonoBehaviour {
 
     public void OnOuijaCall(bool hasAnswer, bool isAffirmative)
     {
-        soundEffects.MakeAnswerSpiritSound(Camera.main.transform.position);
         if (hasAnswer)
         {
             if (isAffirmative)
@@ -131,6 +131,7 @@ public class MainInterfaceScript : MonoBehaviour {
             {
                 toPositionPlanchette = new Vector3(178, 114, 0);
             }
+
             spiritTalking = true;
         }
         else
