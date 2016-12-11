@@ -4,15 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ActiveObject : QuestionDataScript {
-    private SoundEffectsHelper soundEffects;
     private QuestionDataScript mainQuestions;
     public List<Question> questions;
 
     int startY = -20;
 
     // Use this for initialization
+    void Awake()
+    {
+
+    }
+
     void Start () {
-        soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
         mainQuestions = GameObject.Find("MainInterface").GetComponent<QuestionDataScript>();
     }
 	
@@ -39,7 +42,6 @@ public class ActiveObject : QuestionDataScript {
             mainQuestions.buttonList.Add(button);
             mainQuestions.currentQuestions.Add(questions[i]);
         }
-        soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
     }
 
 

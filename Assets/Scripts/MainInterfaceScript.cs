@@ -90,11 +90,11 @@ public class MainInterfaceScript : MonoBehaviour {
                     {
                         hangMan.EnableHangManPart();
                         addHangManPart = false;
-                        //soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
-                    }
-                    else if (!affirmative)
-                    {
                         soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
+                    }
+                    else
+                    {
+                        soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
                     }
                 }
             }

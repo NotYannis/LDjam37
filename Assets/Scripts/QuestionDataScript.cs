@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class QuestionDataScript : MonoBehaviour {
-
+    protected SoundEffectsHelper soundEffects;
     public GameObject buttonPrefab;
     private MainInterfaceScript interfaceScript;
 
@@ -24,19 +24,33 @@ public class QuestionDataScript : MonoBehaviour {
     public List<Question> questionsData;
     public List<Question> currentQuestions;
     public List<GameObject> buttonList;
+    public List<GameObject> objectList;
+
 
     // Use this for initialization
     void Awake () {
         buttonList = new List<GameObject>();
-
+        soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
         interfaceScript = GetComponent<MainInterfaceScript>();
 
+        //Fill all the interactive objects with the rigth data
         for (int i = 0; i < questionsData.Count; ++i)
         {
             GameObject interactiveObject = GameObject.Find("Views/InteractiveObjects/" + questionsData[i].activatingObject);
             interactiveObject.GetComponent<ActiveObject>().questions.Add(questionsData[i]);
         }
         currentQuestions = new List<Question>();
+
+        //Fill an array with all the interactive objects
+        GameObject interactiveObjects = GameObject.Find("Views/InteractiveObjects");
+        for (int i = 0; i < interactiveObjects.transform.childCount; ++i)
+        {
+            Transform child = interactiveObjects.transform.GetChild(i);
+            if(child != null)
+            {
+                objectList.Add(child.gameObject);
+            }
+        }
 	}
 	
 	// Update is called once per frame
@@ -44,16 +58,13 @@ public class QuestionDataScript : MonoBehaviour {
 	
 	}
 
-    public void AddButton()
-    {
-
-    }
-
     public void ActivateQuestion(int index)
     {
         if (!interfaceScript.spiritTalking)
         {
             Question currentQuestion = currentQuestions[index];
+
+            soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
 
             interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
             if(currentQuestion.activatingObject != null)

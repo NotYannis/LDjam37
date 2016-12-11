@@ -11,6 +11,9 @@ public class SoundEffectsHelper : MonoBehaviour
 
     public AudioSource[] answerSpiritSounds = new AudioSource[3];
     public AudioSource[] droneSounds = new AudioSource[3];
+    public AudioSource[] objectActivatedSounds = new AudioSource[21];
+    public AudioSource[] objectDesactivatedSounds = new AudioSource[21];
+    public AudioSource[] questionVoices;
     public AudioSource questionUnlock;
     public AudioSource wrongQuestion;
     public AudioSource deadSound;
@@ -40,6 +43,30 @@ public class SoundEffectsHelper : MonoBehaviour
         MakeSound(droneSounds[sound], position, true);
     }
 
+    public void MakeActivatedObjectSound(int index)
+    {
+        if(objectActivatedSounds[index] != null)
+        {
+            MakeSound(objectActivatedSounds[index], Camera.main.transform.position, true);
+        }
+    }
+
+    public void MakeDesactivatedObjectSound(int index)
+    {
+        if(objectDesactivatedSounds[index] != null)
+        {
+            MakeSound(objectDesactivatedSounds[index], Camera.main.transform.position, true);
+        }
+    }
+
+    public void MakeQuestionVoices(int index)
+    {
+        if(questionVoices[index] != null)
+        {
+           MakeSound(questionVoices[index], Camera.main.transform.position, true);
+        }
+    }
+
     public void MakeWrongQuestionSound(Vector3 position)
     {
         MakeSound(wrongQuestion, position, true);
@@ -64,14 +91,19 @@ public class SoundEffectsHelper : MonoBehaviour
 
     private void MakeSound(AudioSource originalClip, Vector3 position, bool soundIn2D)
     {
+        GameObject soundPlaying;
+        float soundDuration = 0.0f;
         if (soundIn2D){
-            GameObject soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
-            //Debug.Log(soundPlaying.name);
-            Destroy(soundPlaying);
+            soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
+            soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
+            soundDuration = originalClip.clip.length;
         }
         else
         {
-            GameObject soundPlaying = Instantiate(originalClip, position, Quaternion.identity, Camera.main.transform) as GameObject;
+            soundPlaying = Instantiate(originalClip, position, Quaternion.identity, Camera.main.transform) as GameObject;
+            soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
+            soundDuration = originalClip.clip.length;
         }
+        Destroy(soundPlaying, soundDuration);
     }
 }

@@ -1,30 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Animator))]
 public class InteractionObject : MonoBehaviour {
+
+    QuestionDataScript questionData;
+    SoundEffectsHelper soundEffects;
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        questionData = GameObject.Find("MainInterface").GetComponent<QuestionDataScript>();
+        soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-    public void playAnimation()
+    public void InteractWithObject()
     {
-        Animator anim = GetComponent<Animator>();
-        if(anim != null)
-        {
-            anim.SetBool("animate", true);
-        }
+        
         if (GetComponent<ActiveObject>().enabled)
         {
+            soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));
             GetComponent<ActiveObject>().AddQuestionToButtonList();
             GetComponent<ActiveObject>().enabled = false;
+        }
+        else
+        {
+            soundEffects.MakeDesactivatedObjectSound(questionData.objectList.IndexOf(gameObject));
         }
     }
 
