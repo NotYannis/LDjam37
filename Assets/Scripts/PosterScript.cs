@@ -18,7 +18,7 @@ public class PosterScript : MonoBehaviour {
 	void Update () {
         if(animCooldown <= 0.0f)
         {
-            animCooldown = Random.Range(0.5f, 2.0f);
+            animCooldown = Random.Range(5.0f, 10.0f);
             int rand = (int)Random.Range(0, 2);
             if (rand == 0)
             {

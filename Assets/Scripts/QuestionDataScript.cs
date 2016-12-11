@@ -35,8 +35,10 @@ public class QuestionDataScript : MonoBehaviour {
         //Fill all the interactive objects with the rigth data
         for (int i = 0; i < questionsData.Count; ++i)
         {
-            GameObject interactiveObject = GameObject.Find("Views/InteractiveObjects/" + questionsData[i].activatingObject);
-            interactiveObject.GetComponent<ActiveObject>().questions.Add(questionsData[i]);
+            if(GameObject.Find("Views/InteractiveObjects/" + questionsData[i].activatingObject) != null){
+                GameObject interactiveObject = GameObject.Find("Views/InteractiveObjects/" + questionsData[i].activatingObject);
+                interactiveObject.GetComponent<ActiveObject>().questions.Add(questionsData[i]);
+            }
         }
         currentQuestions = new List<Question>();
 
@@ -53,11 +55,6 @@ public class QuestionDataScript : MonoBehaviour {
         }
         objectList[0].GetComponent<ActiveObject>().enabled = true;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void ActivateQuestion(GameObject button)
     {
@@ -74,20 +71,40 @@ public class QuestionDataScript : MonoBehaviour {
             interfaceScript.isAskingQuestion = true;
             interfaceScript.hasAnswer = currentQuestion.hasAnswer;
             interfaceScript.isAffirmative = currentQuestion.isAffirmative;
-            interfaceScript.Invoke("OnOuijaCall", 0.0f);
+            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
 
             //interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
             if (currentQuestion.activatedObject != "")
             {
-                GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
+                if(currentQuestion.activatedObject == "FirstQuestions")
+                {
+                    for(int i = 1; i < 4; ++i)
+                    {
+                        GameObject but = Instantiate(buttonPrefab) as GameObject;
+
+                        but.GetComponent<Button>().onClick.AddListener(() => { ActivateQuestion(but); });
+                        but.transform.SetParent(GameObject.Find("MainInterface/Menu/Scroll View/Viewport/Content").GetComponent<Transform>());
+
+                        float buttonYPos = -20 - (buttonList.Count * (but.GetComponent<RectTransform>().rect.height + 5));
+                        but.transform.localScale = new Vector3(1, 1, 1);
+                        but.GetComponentInChildren<Text>().text = questionsData[i].question;
+                        but.GetComponent<RectTransform>().localPosition = new Vector3(button.GetComponent<RectTransform>().rect.width / 2 + 12, buttonYPos, 0.0f);
+
+                        buttonList.Add(but);
+                        currentQuestions.Add(questionsData[i]);
+                    }
+                }
+                else
+                {
+                    GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
+                }
 
                 //Last object case
                 if (currentQuestion.activatedObject == "DiskEnding")
                 {
-                    GameObject.Find("DiskEnding").transform.position = new Vector3(
-                         GameObject.Find("DiskEnding").transform.position.x,
-                         GameObject.Find("DiskEnding").transform.position.y,
-                         -1.0f);
+                    
+                    GameObject.Find("DiskEnding").GetComponent<SpriteRenderer>().enabled = true;
+                    GameObject.Find("DiskEnding").SetActive(false);
                     GameObject.Find("DiskTutoButton").SetActive(false);
                 }
             }
