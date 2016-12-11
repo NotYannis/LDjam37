@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ScreenShake : MonoBehaviour
 {
-    float originalCameraPositionY;
-
     public float shakeAmt = 0;
     private bool shake = false;
 
@@ -33,7 +31,6 @@ public class ScreenShake : MonoBehaviour
     public void StartShaking()
     {
         shake = true;
-        originalCameraPositionY = Camera.main.transform.position.y;
     }
 
     void StopShaking()

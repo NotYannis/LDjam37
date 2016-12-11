@@ -13,7 +13,6 @@ public class MainInterfaceScript : MonoBehaviour {
     Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
 
-    bool affirmative;
     bool addHangManPart;
     public bool menuSlide;
     bool isMenuOpen;
@@ -155,7 +154,6 @@ public class MainInterfaceScript : MonoBehaviour {
             {
                 toPositionPlanchette = new Vector3(125, 39, 0);
             }
-            affirmative = isAffirmative;
             spiritTalking = true;
         }
         else

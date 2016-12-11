@@ -28,7 +28,6 @@ public class ActiveObject : QuestionDataScript {
     {
         for(int i = 0; i < questions.Count; ++i)
         {
-            int index = mainQuestions.currentQuestions.Count;
             GameObject button = Instantiate(mainQuestions.buttonPrefab) as GameObject;
             
             button.GetComponent<Button>().onClick.AddListener(() => { mainQuestions.ActivateQuestion(button); });
