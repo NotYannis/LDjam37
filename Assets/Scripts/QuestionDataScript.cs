@@ -67,8 +67,14 @@ public class QuestionDataScript : MonoBehaviour {
             int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
 
-            //soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
-            interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
+            // float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
+
+            interfaceScript.isAskingQuestion = true;
+            interfaceScript.hasAnswer = currentQuestion.hasAnswer;
+            interfaceScript.isAffirmative = currentQuestion.isAffirmative;
+            interfaceScript.Invoke("OnOuijaCall", 0.0f);
+
+            //interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
             if (currentQuestion.activatedObject != "")
             {
                 GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;

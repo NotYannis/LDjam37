@@ -59,12 +59,16 @@ public class SoundEffectsHelper : MonoBehaviour
         }
     }
 
-    public void MakeQuestionVoices(int index)
+    public float MakeQuestionVoices(int index)
     {
+        float clipTime = 0.0f;
         if(questionVoices[index] != null)
         {
            MakeSound(questionVoices[index], Camera.main.transform.position, true);
+           clipTime = questionVoices[index].clip.length;
         }
+        return clipTime;
+        
     }
 
     public void MakeWrongQuestionSound(Vector3 position)

@@ -14,10 +14,12 @@ public class MainInterfaceScript : MonoBehaviour {
 
     bool affirmative;
     bool addHangManPart;
-    bool menuSlide;
+    public bool menuSlide;
     bool isMenuOpen;
     public bool spiritTalking;
-
+    public bool hasAnswer;
+    public bool isAffirmative;
+    public bool isAskingQuestion;
 
     public float planchetteMoveSpeed;
     public float menuMoveSpeed;
@@ -31,7 +33,6 @@ public class MainInterfaceScript : MonoBehaviour {
     private int frameCounty = 1;
     private int planchetteAmplitudeX = 100;
     private int planchetteAmplitudeY = 80;
-
 
 
     // Use this for initialization
@@ -127,8 +128,10 @@ public class MainInterfaceScript : MonoBehaviour {
         menuSlide = true;
     }
 
-    public void OnOuijaCall(bool hasAnswer, bool isAffirmative)
+    public void OnOuijaCall()
     {
+        isAskingQuestion = false;
+
         if (hasAnswer)
         {
 
@@ -149,6 +152,7 @@ public class MainInterfaceScript : MonoBehaviour {
             spiritTalking = true;
             addHangManPart = true;
         }
+
 
         //Initialize planchette position
         xPeriod = Random.Range(100, 300);

@@ -32,10 +32,14 @@ public class HangManScript : MonoBehaviour {
     {
         hangManEnabledParts.Add(hangManDisabledParts[0]);
         hangManEnabledParts[hangManEnabledParts.Count - 1].SetActive(true);
-        hangManDisabledParts.RemoveAt(0);
-        if(hangManDisabledParts.Count == 0)
+        if(hangManDisabledParts.Count == 1)
         {
+            Debug.Log("kikk");
             GameObject.Find("Scripts").GetComponent<DeathScript>().Die();
+        }
+        else
+        {
+            hangManDisabledParts.RemoveAt(0);
         }
 
     }
