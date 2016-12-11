@@ -18,14 +18,12 @@ public class QuestionDataScript : MonoBehaviour {
         public bool isAffirmative;
         [Tooltip("Quel objet la question active ?")]
         public string activatedObject;
-
     }
 
     public List<Question> questionsData;
     public List<Question> currentQuestions;
     public List<GameObject> buttonList;
     public List<GameObject> objectList;
-
 
     // Use this for initialization
     void Awake () {
@@ -49,31 +47,34 @@ public class QuestionDataScript : MonoBehaviour {
             if(child != null)
             {
                 objectList.Add(child.gameObject);
+                child.GetComponent<ActiveObject>().enabled = false;
+
             }
         }
-	}
+
+        objectList[0].GetComponent<ActiveObject>().enabled = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-    public void ActivateQuestion(int index)
+    public void ActivateQuestion(GameObject button)
     {
         if (!interfaceScript.spiritTalking)
         {
+            int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
 
-            soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
-
+            //soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
             interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
-            if(currentQuestion.activatingObject != null)
+            if (currentQuestion.activatedObject != "")
             {
-                GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatingObject);
+                GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
             }
 
             currentQuestions.Remove(currentQuestion);
-
             DestroyButton(buttonList[index], index);
         }
     }
@@ -84,8 +85,6 @@ public class QuestionDataScript : MonoBehaviour {
         buttonList.Remove(button);
         for(int i = index; i < buttonList.Count; ++i)
         {
-            buttonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
-            buttonList[i].GetComponent<Button>().onClick.AddListener(() => { ActivateQuestion(index); });
             Vector3 pos = buttonList[i].GetComponent<RectTransform>().localPosition;
             pos = new Vector3(
                     pos.x,

@@ -31,7 +31,7 @@ public class ActiveObject : QuestionDataScript {
             int index = mainQuestions.currentQuestions.Count;
             GameObject button = Instantiate(mainQuestions.buttonPrefab) as GameObject;
             
-            button.GetComponent<Button>().onClick.AddListener(() => { mainQuestions.ActivateQuestion(index); });
+            button.GetComponent<Button>().onClick.AddListener(() => { mainQuestions.ActivateQuestion(button); });
             button.transform.SetParent(GameObject.Find("MainInterface/Menu/Scroll View/Viewport/Content").GetComponent<Transform>());
 
             float buttonYPos = startY - (mainQuestions.buttonList.Count * (button.GetComponent<RectTransform>().rect.height + 5));

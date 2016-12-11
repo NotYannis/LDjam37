@@ -31,12 +31,12 @@ public class HangManScript : MonoBehaviour {
     public void EnableHangManPart()
     {
         hangManEnabledParts.Add(hangManDisabledParts[0]);
-        hangManDisabledParts.RemoveAt(0);
         hangManEnabledParts[hangManEnabledParts.Count - 1].SetActive(true);
-
+        hangManDisabledParts.RemoveAt(0);
         if(hangManDisabledParts.Count == 0)
         {
             GameObject.Find("Scripts").GetComponent<DeathScript>().Die();
         }
+
     }
 }

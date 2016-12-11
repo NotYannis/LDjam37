@@ -11,12 +11,6 @@ public class ScreenShake : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (shake) StopShaking();
-            else StartShaking();
-        }
-
         if (shake)
         {
             CameraShake();

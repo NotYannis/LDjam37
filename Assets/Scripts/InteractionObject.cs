@@ -25,7 +25,8 @@ public class InteractionObject : MonoBehaviour {
         {
             soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));
             GetComponent<ActiveObject>().AddQuestionToButtonList();
-            GetComponent<ActiveObject>().enabled = false;
+            gameObject.SetActive(false);
+            GameObject.Find("RoomInterface/" + gameObject.name + "Button").SetActive(false);
         }
         else
         {
