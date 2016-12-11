@@ -66,7 +66,7 @@ public class SoundEffectsHelper : MonoBehaviour
     {
         if (soundIn2D){
             GameObject soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
-            Debug.Log(soundPlaying.name);
+            //Debug.Log(soundPlaying.name);
             Destroy(soundPlaying);
         }
         else

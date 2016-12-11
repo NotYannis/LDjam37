@@ -12,6 +12,7 @@ public class MainInterfaceScript : MonoBehaviour {
     Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
 
+    bool affirmative;
     bool addHangManPart;
     bool menuSlide;
     bool isMenuOpen;
@@ -28,20 +29,23 @@ public class MainInterfaceScript : MonoBehaviour {
     private int yPeriod = 1;
     private int frameCountx = 1;
     private int frameCounty = 1;
+    private int planchetteAmplitudeX = 100;
+    private int planchetteAmplitudeY = 80;
+
 
 
     // Use this for initialization
     void Start () {
         menu = GameObject.Find("MainInterface/Menu");
         planchette = GameObject.Find("MainInterface/Menu/OuijaBoard/Planchette");
-        hangMan = GameObject.Find("MainInterface/HangMan").GetComponent<HangManScript>();
+        hangMan = GameObject.Find("MainInterface/Menu/OuijaBoard/HangMan").GetComponent<HangManScript>();
 
         if (GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>() != null)
         {
             soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
         }
 
-        toPositionMenu = new Vector3(0, -289, 0);
+        toPositionMenu = new Vector3(0, 0, 0);
         spiritThinkingCooldown = spiritThinkingTime;
     }
 	
@@ -59,17 +63,17 @@ public class MainInterfaceScript : MonoBehaviour {
 
                 if (frameCountx == xPeriod)
                 {
-                    xPeriod = Random.Range(50, 200);
+                    xPeriod = Random.Range(300, 400);
                     frameCountx = 1;
                 }
                 if(frameCounty == yPeriod)
                 {
-                    yPeriod = Random.Range(50, 200);
+                    yPeriod = Random.Range(200, 300);
                     frameCounty = 1;
                 }
 
-                float xPosition = 80 * Mathf.Cos((Mathf.PI * 2) * frameCountx / xPeriod);
-                float yPosition = 80 * Mathf.Sin((Mathf.PI * 2) * frameCounty / yPeriod);
+                float xPosition = planchetteAmplitudeX * Mathf.Cos((Mathf.PI * 2) * frameCountx / xPeriod);
+                float yPosition = planchetteAmplitudeY * Mathf.Sin((Mathf.PI * 2) * frameCounty / yPeriod);
                 planchette.GetComponent<RectTransform>().localPosition = new Vector3(xPosition, yPosition, 0);
             }
             else
@@ -86,6 +90,10 @@ public class MainInterfaceScript : MonoBehaviour {
                     {
                         hangMan.EnableHangManPart();
                         addHangManPart = false;
+                        //soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
+                    }
+                    else if (!affirmative)
+                    {
                         soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
                     }
                 }
@@ -109,11 +117,11 @@ public class MainInterfaceScript : MonoBehaviour {
     public void OnMenuCall() {
         if (isMenuOpen)
         {
-            toPositionMenu = new Vector3(0, -787, 0);
+            toPositionMenu = new Vector3(0, -1080, 0);
         }
         else
         {
-            toPositionMenu = new Vector3(0, -289, 0);
+            toPositionMenu = new Vector3(0, 0, 0);
         }
         isMenuOpen = !isMenuOpen;
         menuSlide = true;
@@ -123,30 +131,33 @@ public class MainInterfaceScript : MonoBehaviour {
     {
         if (hasAnswer)
         {
+
             if (isAffirmative)
             {
-                toPositionPlanchette = new Vector3(-138, 114, 0);
+                toPositionPlanchette = new Vector3(-123, 39, 0);
             }
             else
             {
-                toPositionPlanchette = new Vector3(178, 114, 0);
+                toPositionPlanchette = new Vector3(125, 39, 0);
             }
-
+            affirmative = isAffirmative;
             spiritTalking = true;
         }
         else
         {
-            toPositionPlanchette = new Vector3(0, -175, 0);
+            toPositionPlanchette = new Vector3(0, -60, 0);
             spiritTalking = true;
             addHangManPart = true;
         }
 
         //Initialize planchette position
-        xPeriod = Random.Range(50, 200);
+        xPeriod = Random.Range(100, 300);
         yPeriod = Random.Range(50, 200);
 
-        float xPosition = 70 * Mathf.Cos((Mathf.PI * 2) * frameCountx / xPeriod);
-        float yPosition = 70 * Mathf.Sin((Mathf.PI * 2) * frameCounty / yPeriod);
+        float xPosition = planchetteAmplitudeX * Mathf.Cos((Mathf.PI * 2) * frameCountx / xPeriod);
+        float yPosition = planchetteAmplitudeY * Mathf.Sin((Mathf.PI * 2) * frameCounty / yPeriod);
         planchette.GetComponent<RectTransform>().localPosition = new Vector3(xPosition, yPosition, 0);
+
+        soundEffects.MakeAnswerSpiritSound(Camera.main.transform.position);
     }
 }

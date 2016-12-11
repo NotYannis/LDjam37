@@ -13,10 +13,10 @@ public class HangManScript : MonoBehaviour {
         hangManDisabledParts = new List<GameObject>();
         hangManEnabledParts = new List<GameObject>();
 
-        GameObject hangMan = GameObject.Find("MainInterface/HangMan");
+        GameObject hangMan = GameObject.Find("MainInterface/Menu/OuijaBoard/HangMan");
         for(int i = 0; i < hangMan.transform.childCount; ++i)
         {
-            GameObject child = GameObject.Find("MainInterface/HangMan/HangPart" + i);
+            GameObject child = GameObject.Find("MainInterface/Menu/OuijaBoard/HangMan/HangPart" + i);
             if(child != null)
             {
                 hangManDisabledParts.Add(child.gameObject);
