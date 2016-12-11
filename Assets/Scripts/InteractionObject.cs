@@ -10,7 +10,6 @@ public class InteractionObject : MonoBehaviour {
 	void Start () {
         questionData = GameObject.Find("MainInterface").GetComponent<QuestionDataScript>();
         soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
-
     }
 	
 	// Update is called once per frame
@@ -25,6 +24,7 @@ public class InteractionObject : MonoBehaviour {
         {
             soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));
             GetComponent<ActiveObject>().AddQuestionToButtonList();
+            GetComponent<ActiveObject>().enabled = false;
             CreateSprite(GetComponent<SpriteRenderer>());
             GameObject.Find("RoomInterface/" + gameObject.name + "Button").SetActive(false);
         }

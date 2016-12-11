@@ -7,6 +7,7 @@ public class QuestionDataScript : MonoBehaviour {
     protected SoundEffectsHelper soundEffects;
     public GameObject buttonPrefab;
     private MainInterfaceScript interfaceScript;
+    private GameObject scripts; 
 
     [System.Serializable]
     public struct Question
@@ -48,10 +49,8 @@ public class QuestionDataScript : MonoBehaviour {
             {
                 objectList.Add(child.gameObject);
                 child.GetComponent<ActiveObject>().enabled = false;
-
             }
         }
-
         objectList[0].GetComponent<ActiveObject>().enabled = true;
     }
 	
@@ -66,7 +65,10 @@ public class QuestionDataScript : MonoBehaviour {
         {
             int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
-
+            if(questionsData.IndexOf(currentQuestion) == 69)
+            {
+                interfaceScript.isLastQuestion = true;
+            }
             // float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
 
             interfaceScript.isAskingQuestion = true;
@@ -78,6 +80,16 @@ public class QuestionDataScript : MonoBehaviour {
             if (currentQuestion.activatedObject != "")
             {
                 GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
+
+                //Last object case
+                if (currentQuestion.activatedObject == "DiskEnding")
+                {
+                    GameObject.Find("DiskEnding").transform.position = new Vector3(
+                         GameObject.Find("DiskEnding").transform.position.x,
+                         GameObject.Find("DiskEnding").transform.position.y,
+                         -1.0f);
+                    GameObject.Find("DiskTutoButton").SetActive(false);
+                }
             }
 
             currentQuestions.Remove(currentQuestion);

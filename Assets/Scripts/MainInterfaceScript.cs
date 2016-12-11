@@ -8,6 +8,7 @@ public class MainInterfaceScript : MonoBehaviour {
 
     GameObject menu;
     GameObject planchette;
+    GameObject scripts;
 
     Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
@@ -20,6 +21,7 @@ public class MainInterfaceScript : MonoBehaviour {
     public bool hasAnswer;
     public bool isAffirmative;
     public bool isAskingQuestion;
+    public bool isLastQuestion;
 
     public float planchetteMoveSpeed;
     public float menuMoveSpeed;
@@ -37,6 +39,7 @@ public class MainInterfaceScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        scripts = GameObject.Find("Scripts");
         menu = GameObject.Find("MainInterface/Menu");
         planchette = GameObject.Find("MainInterface/Menu/OuijaBoard/Planchette");
         hangMan = GameObject.Find("MainInterface/Menu/OuijaBoard/HangMan").GetComponent<HangManScript>();
@@ -95,7 +98,16 @@ public class MainInterfaceScript : MonoBehaviour {
                     }
                     else
                     {
-                        soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
+                        if (!isLastQuestion)
+                        {
+                            soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
+                        }
+                        else
+                        {
+                            scripts.GetComponent<ScreenShake>().StartShaking();
+                            scripts.GetComponent<PosterScript>().enabled = true;
+                            scripts.GetComponent<PosterScript>().PosterVener();
+                        }
                     }
                 }
             }

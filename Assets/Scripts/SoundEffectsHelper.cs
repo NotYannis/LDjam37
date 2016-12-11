@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SoundEffectsHelper : MonoBehaviour
 {
@@ -18,8 +19,7 @@ public class SoundEffectsHelper : MonoBehaviour
     public AudioSource wrongQuestion;
     public AudioSource deadSound;
 
-
-
+    public List<GameObject> soundsPlaying;
 
     void Awake()
     {
@@ -29,6 +29,7 @@ public class SoundEffectsHelper : MonoBehaviour
             Debug.LogError("Multiple instances of SoundEffectsHelper!");
         }
         Instance = this;
+        soundsPlaying = new List<GameObject>();
     }
 
     public void MakeAnswerSpiritSound(Vector3 position)
@@ -97,7 +98,8 @@ public class SoundEffectsHelper : MonoBehaviour
     {
         GameObject soundPlaying;
         float soundDuration = 0.0f;
-        if (soundIn2D){
+        if (soundIn2D)
+        {
             soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
             soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
             soundDuration = originalClip.clip.length;
@@ -108,6 +110,7 @@ public class SoundEffectsHelper : MonoBehaviour
             soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
             soundDuration = originalClip.clip.length;
         }
+        soundsPlaying.Add(soundPlaying);
         Destroy(soundPlaying, soundDuration);
     }
 }

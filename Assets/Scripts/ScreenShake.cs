@@ -6,7 +6,7 @@ public class ScreenShake : MonoBehaviour
     float originalCameraPositionY;
 
     public float shakeAmt = 0;
-    public bool shake = true;
+    private bool shake = false;
 
 
     void Update()
@@ -39,7 +39,7 @@ public class ScreenShake : MonoBehaviour
     void StopShaking()
     {
         shake = false;
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, -9, Camera.main.transform.position.z);
+        Camera.main.transform.position = new Vector3(4.496f, 0.039f, -10.0f);
     }
 
 }
