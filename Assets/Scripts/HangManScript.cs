@@ -25,11 +25,7 @@ public class HangManScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject.Find("Scripts").GetComponent<DeathScript>().Die();
-        }
+	void Update () { 
 	}
 
     public void EnableHangManPart()
