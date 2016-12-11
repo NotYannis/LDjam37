@@ -2,14 +2,13 @@
 using System.Collections;
 
 public class DeathScript : MonoBehaviour {
-
     SoundEffectsHelper soundsEffects;
     GameObject deathMenu;
 
 	// Use this for initialization
 	void Start () {
         deathMenu = GameObject.Find("DeathMenu");
-        deathMenu.SetActive(true);
+        deathMenu.SetActive(false);
 	}
 	
 	// Update is called once per frame

@@ -143,7 +143,7 @@ public class EchapMenu : MonoBehaviour {
 
     public void OnRestart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void OnCredits()
