@@ -18,6 +18,9 @@ public class SoundEffectsHelper : MonoBehaviour
     public AudioSource questionUnlock;
     public AudioSource wrongQuestion;
     public AudioSource deadSound;
+    public AudioSource startSound;
+    public AudioSource endSound;
+
 
     public List<GameObject> soundsPlaying;
 
@@ -85,6 +88,16 @@ public class SoundEffectsHelper : MonoBehaviour
     public void MakeDeadSound(Vector3 position)
     {
         MakeSound(deadSound, position, true);
+    }
+
+    public void MakeStartSound(Vector3 position)
+    {
+        MakeSound(startSound, position, true);
+    }
+
+    public void MakeEndSound(Vector3 position)
+    {
+        MakeSound(endSound, position, true);
     }
 
 

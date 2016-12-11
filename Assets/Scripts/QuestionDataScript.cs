@@ -66,14 +66,14 @@ public class QuestionDataScript : MonoBehaviour {
             {
                 interfaceScript.isLastQuestion = true;
             }
-            // float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
+            Debug.Log(questionsData.IndexOf(currentQuestion));
+            float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
 
             interfaceScript.isAskingQuestion = true;
             interfaceScript.hasAnswer = currentQuestion.hasAnswer;
             interfaceScript.isAffirmative = currentQuestion.isAffirmative;
-            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
+            interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
 
-            //interfaceScript.OnOuijaCall(currentQuestion.hasAnswer, currentQuestion.isAffirmative);
             if (currentQuestion.activatedObject != "")
             {
                 if(currentQuestion.activatedObject == "FirstQuestions")

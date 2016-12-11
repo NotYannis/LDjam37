@@ -50,6 +50,7 @@ public class MainInterfaceScript : MonoBehaviour {
 
         toPositionMenu = new Vector3(0, 0, 0);
         spiritThinkingCooldown = spiritThinkingTime;
+        soundEffects.MakeStartSound(Camera.main.transform.position);
     }
 	
 	// Update is called once per frame
@@ -103,6 +104,7 @@ public class MainInterfaceScript : MonoBehaviour {
                         }
                         else
                         {
+                            soundEffects.MakeEndSound(Camera.main.transform.position);
                             scripts.GetComponent<ScreenShake>().StartShaking();
                             scripts.GetComponent<PosterScript>().enabled = true;
                             scripts.GetComponent<PosterScript>().PosterVener();

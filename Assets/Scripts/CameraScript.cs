@@ -5,6 +5,7 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
     private SoundEffectsHelper soundEffects;
+
     private Vector3[] viewPositions = new Vector3[4];
 
     private int currentView = 1;
