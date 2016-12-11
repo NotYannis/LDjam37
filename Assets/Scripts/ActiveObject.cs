@@ -26,6 +26,10 @@ public class ActiveObject : QuestionDataScript {
 
     public void AddQuestionToButtonList()
     {
+        if(gameObject.name == "Poster")
+        {
+            GameObject.Find("View/fire").SetActive(true);
+        }
         for(int i = 0; i < questions.Count; ++i)
         {
             GameObject button = Instantiate(mainQuestions.buttonPrefab) as GameObject;
