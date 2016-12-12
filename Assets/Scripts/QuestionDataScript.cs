@@ -58,25 +58,26 @@ public class QuestionDataScript : MonoBehaviour {
 
     public void ActivateQuestion(GameObject button)
     {
-        if (!interfaceScript.spiritTalking)
+        if (interfaceScript.GetSpiritTalking() == false && interfaceScript.GetIsAskingQuestion() == false)
         {
             int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
             if(questionsData.IndexOf(currentQuestion) == 69)
             {
-                interfaceScript.isLastQuestion = true;
+                interfaceScript.SetIsLastQuestion(true);
             }
             float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
+            Debug.Log(clipTime);
+            Debug.Log(questionsData.IndexOf(currentQuestion));
 
-            interfaceScript.isAskingQuestion = true;
-            interfaceScript.hasAnswer = currentQuestion.hasAnswer;
-            interfaceScript.isAffirmative = currentQuestion.isAffirmative;
-            interfaceScript.spiritTalking = true;
+            interfaceScript.SetIsAskingQuestion(true);
+            interfaceScript.SetHasAnswer(currentQuestion.hasAnswer);
+            interfaceScript.SetIsAffirmative(currentQuestion.isAffirmative);
             interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
             {
-                interfaceScript.unlockSomething = true;
+                interfaceScript.SetUnlockSomething(true);
                 if (currentQuestion.activatedObject == "FirstQuestions")
                 {
                     for(int i = 1; i < 5; ++i)

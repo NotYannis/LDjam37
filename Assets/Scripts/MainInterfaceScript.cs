@@ -16,12 +16,12 @@ public class MainInterfaceScript : MonoBehaviour {
     bool addHangManPart;
     public bool menuSlide;
     bool isMenuOpen;
-    public bool spiritTalking;
-    public bool hasAnswer;
-    public bool isAffirmative;
-    public bool isAskingQuestion;
-    public bool isLastQuestion;
-    public bool unlockSomething;
+    private bool spiritTalking;
+    private bool hasAnswer;
+    private bool isAffirmative;
+    private bool isAskingQuestion;
+    private bool isLastQuestion;
+    private bool unlockSomething;
 
     public float planchetteMoveSpeed;
     public float menuMoveSpeed;
@@ -87,7 +87,7 @@ public class MainInterfaceScript : MonoBehaviour {
                 Vector3 planchettePos = planchette.GetComponent<RectTransform>().localPosition;
 
                 planchette.GetComponent<RectTransform>().localPosition = Vector3.MoveTowards(planchettePos, toPositionPlanchette, speed);
-                if(planchette.GetComponent<RectTransform>().localPosition == toPositionPlanchette)
+                if(planchette.GetComponent<RectTransform>().localPosition.x == toPositionPlanchette.x)
                 {
                     spiritTalking = false;
                     spiritThinkingCooldown = spiritThinkingTime;
@@ -121,6 +121,7 @@ public class MainInterfaceScript : MonoBehaviour {
                     }
                 }
             }
+            Debug.Log(spiritTalking);
         }
 
         //Slide the menu on the game
@@ -153,7 +154,7 @@ public class MainInterfaceScript : MonoBehaviour {
     public void OnOuijaCall()
     {
         isAskingQuestion = false;
-
+        Debug.Log("CALL");
         if (hasAnswer)
         {
 
@@ -165,24 +166,53 @@ public class MainInterfaceScript : MonoBehaviour {
             {
                 toPositionPlanchette = new Vector3(125, 39, 0);
             }
-            spiritTalking = true;
         }
         else
         {
             toPositionPlanchette = new Vector3(0, -60, 0);
-            spiritTalking = true;
             addHangManPart = true;
         }
-
+        spiritTalking = true;
 
         //Initialize planchette position
-        xPeriod = Random.Range(100, 300);
-        yPeriod = Random.Range(50, 200);
+        xPeriod = Random.Range(300, 400);
+        yPeriod = Random.Range(200, 300);
 
         float xPosition = planchetteAmplitudeX * Mathf.Cos((Mathf.PI * 2) * frameCountx / xPeriod);
         float yPosition = planchetteAmplitudeY * Mathf.Sin((Mathf.PI * 2) * frameCounty / yPeriod);
         planchette.GetComponent<RectTransform>().localPosition = new Vector3(xPosition, yPosition, 0);
 
         soundEffects.MakeAnswerSpiritSound(Camera.main.transform.position);
+    }
+
+    public void SetSpiritTalking(bool enable){
+        spiritTalking = enable;
+    }
+
+    public void SetHasAnswer(bool enable){
+        hasAnswer = enable;
+    }
+
+    public void SetIsAffirmative(bool enable){
+        isAffirmative = enable;
+    }
+
+    public void SetIsAskingQuestion(bool enable){
+        isAskingQuestion = enable;
+    }
+
+    public void SetIsLastQuestion(bool enable){
+        isLastQuestion = enable;
+    }
+
+    public void SetUnlockSomething(bool enable){
+        unlockSomething = enable;
+    }
+    public bool GetSpiritTalking(){
+        return spiritTalking;
+    }
+
+    public bool GetIsAskingQuestion(){
+        return isAskingQuestion;
     }
 }
