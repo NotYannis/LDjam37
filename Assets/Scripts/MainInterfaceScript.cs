@@ -96,27 +96,24 @@ public class MainInterfaceScript : MonoBehaviour {
                         hangMan.EnableHangManPart();
                         addHangManPart = false;
                         soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
-                    }
-                    else
-                    {
-                        if (!isLastQuestion)
-                        {
-                            if (unlockSomething)
-                            {
-                                soundEffects.MakeUnlockSomethingSound(Camera.main.transform.position);
-                                unlockSomething = false;
-                            }
-                            else
-                            {
-                                soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
-                            }
-                        }
-                        else
+                        if (isLastQuestion)
                         {
                             soundEffects.MakeEndSound(Camera.main.transform.position);
                             scripts.GetComponent<ScreenShake>().StartShaking();
                             scripts.GetComponent<PosterScript>().enabled = true;
                             scripts.GetComponent<PosterScript>().PosterVener();
+                        }
+                    }
+                    else
+                    {
+                        if (unlockSomething)
+                        {
+                            soundEffects.MakeUnlockSomethingSound(Camera.main.transform.position);
+                            unlockSomething = false;
+                        }
+                        else
+                        {
+                            soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
                         }
                     }
                 }

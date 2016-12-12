@@ -33,7 +33,7 @@ public class ScreenShake : MonoBehaviour
         shake = true;
     }
 
-    void StopShaking()
+    public void StopShaking()
     {
         shake = false;
         Camera.main.transform.position = new Vector3(4.496f, 0.039f, -10.0f);

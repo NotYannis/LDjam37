@@ -59,15 +59,16 @@ public class QuestionDataScript : MonoBehaviour {
         objectList[0].GetComponent<ActiveObject>().enabled = true;
     }
 
+
+    //When you click on a question button, this function is called
     public void ActivateQuestion(GameObject button)
     {
         if (interfaceScript.GetSpiritTalking() == false && interfaceScript.GetIsAskingQuestion() == false)
         {
             int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
-
-            Debug.Log(questionsData.IndexOf(currentQuestion));
             
+            //Last question case
             if(questionsData.IndexOf(currentQuestion) == 68)
             {
                 interfaceScript.SetIsLastQuestion(true);
@@ -102,7 +103,6 @@ public class QuestionDataScript : MonoBehaviour {
                 }
                 else
                 {
-                    Debug.Log("Activated Object :" + currentQuestion.activatedObject);
                     GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
                 }
 
