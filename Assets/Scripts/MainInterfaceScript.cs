@@ -13,6 +13,9 @@ public class MainInterfaceScript : MonoBehaviour {
     Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
 
+    public Sprite baseMenuButton;
+
+
     bool addHangManPart;
     public bool menuSlide;
     bool isMenuOpen;
@@ -120,6 +123,7 @@ public class MainInterfaceScript : MonoBehaviour {
         //Slide the menu on the game
         if (menuSlide)
         {
+            GameObject.Find("MainInterface/ToggleMenu").GetComponent<Image>().sprite = baseMenuButton;
             float speed = menuMoveSpeed * Time.deltaTime;
             Vector3 menuPosition = menu.GetComponent<RectTransform>().localPosition;
 

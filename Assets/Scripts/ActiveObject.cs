@@ -10,6 +10,10 @@ public class ActiveObject : QuestionDataScript {
     public List<Question> questions;
     int startY = -20;
 
+    public Sprite newQuestionsSprite;
+
+    private Image toggleMenuButton;
+
     // Use this for initialization
     void Awake(){
         //DO NOT DELETE THIS
@@ -19,6 +23,7 @@ public class ActiveObject : QuestionDataScript {
     void Start () {
         soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
         mainQuestions = GameObject.Find("MainInterface").GetComponent<QuestionDataScript>();
+        toggleMenuButton = GameObject.Find("MainInterface/ToggleMenu").GetComponent<Image>();
     }
 	
 	// Update is called once per frame
@@ -28,8 +33,10 @@ public class ActiveObject : QuestionDataScript {
 
     public void AddQuestionToButtonList()
     {
-        Debug.Log(phase);
-        Debug.Log(mainQuestions.generalPhase);
+        //Change toggle menu button
+        toggleMenuButton.sprite = newQuestionsSprite;
+
+        //Make a change phase sound
         if(phase != mainQuestions.generalPhase)
         {
             soundEffects.MakeJingleMusic(phase);
