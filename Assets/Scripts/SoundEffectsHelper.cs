@@ -73,7 +73,6 @@ public class SoundEffectsHelper : MonoBehaviour
            clipTime = questionVoices[index].clip.length;
         }
         return clipTime;
-        
     }
 
     public void MakeWrongQuestionSound(Vector3 position)

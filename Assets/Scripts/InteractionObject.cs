@@ -17,21 +17,19 @@ public class InteractionObject : MonoBehaviour {
 	
 	}
 
-    public void InteractWithObject()
+    private void InteractWithObject()
     {
-        
-        if (GetComponent<ActiveObject>().enabled)
+        if (gameObject.GetComponent<ActiveObject>().enabled)
         {
             soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));
-            GetComponent<ActiveObject>().AddQuestionToButtonList();
-            GetComponent<ActiveObject>().enabled = false;
-            //GameObject.Find("RoomInterface/" + gameObject.name + "Button").SetActive(false);
+            gameObject.GetComponent<ActiveObject>().AddQuestionToButtonList();
+            gameObject.GetComponent<ActiveObject>().enabled = false;
         }
         else
         {
             soundEffects.MakeDesactivatedObjectSound(questionData.objectList.IndexOf(gameObject));
         }
-        CreateSprite(GetComponent<SpriteRenderer>());
+        CreateSprite(gameObject.GetComponent<SpriteRenderer>());
     }
 
     private void CreateSprite(SpriteRenderer spr)
@@ -39,6 +37,6 @@ public class InteractionObject : MonoBehaviour {
         Vector3 pos = Camera.main.transform.position;
         SpriteRenderer objectFound = Instantiate(spr, new Vector3(pos.x, pos.y, 0.0f), Quaternion.identity) as SpriteRenderer;
         objectFound.transform.localScale = new Vector3(1, 1, 1);
-        Destroy(objectFound, 2.0f);
+        Destroy(objectFound.gameObject, 2.0f);
     }
 }

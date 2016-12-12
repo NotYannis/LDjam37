@@ -6,8 +6,11 @@ using System.Collections.Generic;
 public class QuestionDataScript : MonoBehaviour {
     protected SoundEffectsHelper soundEffects;
     public GameObject buttonPrefab;
+    public GameObject diskEndingButtonPrefab;
     private MainInterfaceScript interfaceScript;
     private GameObject scripts; 
+
+
 
     [System.Serializable]
     public struct Question
@@ -58,25 +61,27 @@ public class QuestionDataScript : MonoBehaviour {
 
     public void ActivateQuestion(GameObject button)
     {
-        if (!interfaceScript.spiritTalking)
+        if (interfaceScript.GetSpiritTalking() == false && interfaceScript.GetIsAskingQuestion() == false)
         {
             int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
-            if(questionsData.IndexOf(currentQuestion) == 69)
+
+            Debug.Log(questionsData.IndexOf(currentQuestion));
+            
+            if(questionsData.IndexOf(currentQuestion) == 68)
             {
-                interfaceScript.isLastQuestion = true;
+                interfaceScript.SetIsLastQuestion(true);
             }
             float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
 
-            interfaceScript.isAskingQuestion = true;
-            interfaceScript.hasAnswer = currentQuestion.hasAnswer;
-            interfaceScript.isAffirmative = currentQuestion.isAffirmative;
-            interfaceScript.spiritTalking = true;
-            interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
+            interfaceScript.SetIsAskingQuestion(true);
+            interfaceScript.SetHasAnswer(currentQuestion.hasAnswer);
+            interfaceScript.SetIsAffirmative(currentQuestion.isAffirmative);
+            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
             {
-                interfaceScript.unlockSomething = true;
+                interfaceScript.SetUnlockSomething(true);
                 if (currentQuestion.activatedObject == "FirstQuestions")
                 {
                     for(int i = 1; i < 5; ++i)
@@ -97,6 +102,7 @@ public class QuestionDataScript : MonoBehaviour {
                 }
                 else
                 {
+                    Debug.Log("Activated Object :" + currentQuestion.activatedObject);
                     GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
                 }
 
@@ -104,8 +110,7 @@ public class QuestionDataScript : MonoBehaviour {
                 if (currentQuestion.activatedObject == "DiskEnding")
                 {
                     GameObject.Find("DiskEnding").GetComponent<SpriteRenderer>().enabled = true;
-                    GameObject.Find("DiskEndingButton").SetActive(true);
-                    GameObject.Find("DiskEnding").SetActive(false);
+                    diskEndingButtonPrefab.SetActive(true);
                     GameObject.Find("DiskTutoButton").SetActive(false);
                 }
             }
