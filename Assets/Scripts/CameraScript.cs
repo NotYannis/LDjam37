@@ -69,6 +69,7 @@ public class CameraScript : MonoBehaviour {
 
     public void GoDown()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         if (Random.Range(0, droneSoundProb) == 1) soundEffects.MakeDroneSound(Camera.main.transform.position);
         Camera.main.transform.position = viewPositions[3];
         GameObject.Find("MainInterface/NavigationButtons/Left").SetActive(false);
@@ -79,6 +80,7 @@ public class CameraScript : MonoBehaviour {
 
     public void GoUp()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         if (Random.Range(0, droneSoundProb) == 1) soundEffects.MakeDroneSound(Camera.main.transform.position);
         Camera.main.transform.position = viewPositions[currentView];
         GameObject.Find("MainInterface/NavigationButtons/Left").SetActive(true);

@@ -66,7 +66,6 @@ public class QuestionDataScript : MonoBehaviour {
             {
                 interfaceScript.isLastQuestion = true;
             }
-            Debug.Log(questionsData.IndexOf(currentQuestion));
             float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
 
             interfaceScript.isAskingQuestion = true;
@@ -78,7 +77,7 @@ public class QuestionDataScript : MonoBehaviour {
             {
                 if(currentQuestion.activatedObject == "FirstQuestions")
                 {
-                    for(int i = 1; i < 4; ++i)
+                    for(int i = 1; i < 5; ++i)
                     {
                         GameObject but = Instantiate(buttonPrefab) as GameObject;
 
