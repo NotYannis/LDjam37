@@ -25,13 +25,13 @@ public class InteractionObject : MonoBehaviour {
             soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));
             GetComponent<ActiveObject>().AddQuestionToButtonList();
             GetComponent<ActiveObject>().enabled = false;
-            CreateSprite(GetComponent<SpriteRenderer>());
             //GameObject.Find("RoomInterface/" + gameObject.name + "Button").SetActive(false);
         }
         else
         {
             soundEffects.MakeDesactivatedObjectSound(questionData.objectList.IndexOf(gameObject));
         }
+        CreateSprite(GetComponent<SpriteRenderer>());
     }
 
     private void CreateSprite(SpriteRenderer spr)
