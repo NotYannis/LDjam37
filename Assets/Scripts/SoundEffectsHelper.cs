@@ -10,17 +10,20 @@ public class SoundEffectsHelper : MonoBehaviour
     /// </summary>
     public static SoundEffectsHelper Instance;
 
-    public AudioSource[] answerSpiritSounds = new AudioSource[3];
-    public AudioSource[] droneSounds = new AudioSource[3];
-    public AudioSource[] objectActivatedSounds = new AudioSource[21];
-    public AudioSource[] objectDesactivatedSounds = new AudioSource[21];
-    public AudioSource[] questionVoices;
     public AudioSource questionUnlock;
     public AudioSource wrongQuestion;
     public AudioSource deadSound;
     public AudioSource startSound;
     public AudioSource endSound;
     public AudioSource unlockSomething;
+    public AudioSource ambianceMusic;
+    public AudioSource endMusic;
+    public AudioSource[] answerSpiritSounds = new AudioSource[3];
+    public AudioSource[] droneSounds = new AudioSource[3];
+    public AudioSource[] objectActivatedSounds = new AudioSource[21];
+    public AudioSource[] objectDesactivatedSounds = new AudioSource[21];
+    public AudioSource[] questionVoices;
+    public AudioSource[] jingleMusic = new AudioSource[9];
 
 
     public List<GameObject> soundsPlaying;
@@ -103,6 +106,22 @@ public class SoundEffectsHelper : MonoBehaviour
     public void MakeUnlockSomethingSound(Vector3 position)
     {
         MakeSound(unlockSomething, position, true);
+    }
+
+    public void MakeEndMusic()
+    {
+        MakeSound(endMusic, Camera.main.transform.position, true);
+    }
+
+    public void MakeAmbianceMusic()
+    {
+        MakeSound(ambianceMusic, Camera.main.transform.position, true);
+    }
+
+    public void MakeJingleMusic(int index)
+    {
+        MakeSound(jingleMusic[index], Camera.main.transform.position, true);
+
     }
 
     /// <summary>

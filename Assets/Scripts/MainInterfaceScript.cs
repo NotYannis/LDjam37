@@ -52,6 +52,7 @@ public class MainInterfaceScript : MonoBehaviour {
         toPositionMenu = new Vector3(0, 0, 0);
         spiritThinkingCooldown = spiritThinkingTime;
         soundEffects.MakeStartSound(Camera.main.transform.position);
+        soundEffects.MakeAmbianceMusic();
     }
 	
 	// Update is called once per frame
@@ -110,10 +111,6 @@ public class MainInterfaceScript : MonoBehaviour {
                         {
                             soundEffects.MakeUnlockSomethingSound(Camera.main.transform.position);
                             unlockSomething = false;
-                        }
-                        else
-                        {
-                            soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
                         }
                     }
                 }

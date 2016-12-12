@@ -17,7 +17,7 @@ public class MovieScript : MonoBehaviour {
         movieTime -= Time.deltaTime;
         if(!isEnd && (movieTime <= 0.0f || Input.GetKeyDown(KeyCode.Escape)))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadSceneAsync(1);
         }
         if (isEnd)
         {

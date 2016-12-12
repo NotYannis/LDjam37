@@ -8,10 +8,12 @@ public class CursorChangeScript : MonoBehaviour, IPointerEnterHandler, IPointerE
     public Texture2D cursorHover;
     public Texture2D cursorNormal;
 
+    public Vector2 position;
+
     //Do this when the cursor enters the rect area of this selectable UI object.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Cursor.SetCursor(cursorHover, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorHover, position, CursorMode.Auto);
     }
 
     public void OnPointerExit(PointerEventData eventData)

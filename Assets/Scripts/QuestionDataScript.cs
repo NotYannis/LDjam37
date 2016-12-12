@@ -8,9 +8,9 @@ public class QuestionDataScript : MonoBehaviour {
     public GameObject buttonPrefab;
     public GameObject diskEndingButtonPrefab;
     private MainInterfaceScript interfaceScript;
-    private GameObject scripts; 
+    private GameObject scripts;
 
-
+    public int generalPhase = -1;
 
     [System.Serializable]
     public struct Question
@@ -78,14 +78,29 @@ public class QuestionDataScript : MonoBehaviour {
             interfaceScript.SetIsAskingQuestion(true);
             interfaceScript.SetHasAnswer(currentQuestion.hasAnswer);
             interfaceScript.SetIsAffirmative(currentQuestion.isAffirmative);
-            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
+            interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
             {
                 interfaceScript.SetUnlockSomething(true);
-                if (currentQuestion.activatedObject == "FirstQuestions")
+                if (currentQuestion.activatedObject == "FirstQuestion")
                 {
-                    for(int i = 1; i < 5; ++i)
+                    GameObject but = Instantiate(buttonPrefab) as GameObject;
+
+                    but.GetComponent<Button>().onClick.AddListener(() => { ActivateQuestion(but); });
+                    but.transform.SetParent(GameObject.Find("MainInterface/Menu/Scroll View/Viewport/Content").GetComponent<Transform>());
+
+                    float buttonYPos = -20 - (buttonList.Count * (but.GetComponent<RectTransform>().rect.height + 5));
+                    but.transform.localScale = new Vector3(1, 1, 1);
+                    but.GetComponentInChildren<Text>().text = questionsData[1].question;
+                    but.GetComponent<RectTransform>().localPosition = new Vector3(button.GetComponent<RectTransform>().rect.width / 2 + 12, buttonYPos, 0.0f);
+
+                    buttonList.Add(but);
+                    currentQuestions.Add(questionsData[1]);
+                }
+                else if (currentQuestion.activatedObject == "SecondQuestions")
+                {
+                    for(int i = 2; i < 5; ++i)
                     {
                         GameObject but = Instantiate(buttonPrefab) as GameObject;
 

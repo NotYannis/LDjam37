@@ -19,6 +19,7 @@ public class InteractionObject : MonoBehaviour {
 
     private void InteractWithObject()
     {
+
         if (gameObject.GetComponent<ActiveObject>().enabled)
         {
             soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));

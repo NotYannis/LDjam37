@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class ActiveObject : QuestionDataScript {
     private QuestionDataScript mainQuestions;
     public GameObject fire;
-
+    public int phase;
     public List<Question> questions;
     int startY = -20;
 
@@ -28,6 +28,14 @@ public class ActiveObject : QuestionDataScript {
 
     public void AddQuestionToButtonList()
     {
+        Debug.Log(phase);
+        Debug.Log(mainQuestions.generalPhase);
+        if(phase != mainQuestions.generalPhase)
+        {
+            soundEffects.MakeJingleMusic(phase);
+            mainQuestions.generalPhase = phase;
+        }
+
         if(gameObject.name == "Poster")
         {
             fire.SetActive(true);
