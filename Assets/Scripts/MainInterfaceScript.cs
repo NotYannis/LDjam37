@@ -21,6 +21,7 @@ public class MainInterfaceScript : MonoBehaviour {
     public bool isAffirmative;
     public bool isAskingQuestion;
     public bool isLastQuestion;
+    public bool unlockSomething;
 
     public float planchetteMoveSpeed;
     public float menuMoveSpeed;
@@ -100,7 +101,15 @@ public class MainInterfaceScript : MonoBehaviour {
                     {
                         if (!isLastQuestion)
                         {
-                            soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
+                            if (unlockSomething)
+                            {
+                                soundEffects.MakeUnlockSomethingSound(Camera.main.transform.position);
+                                unlockSomething = false;
+                            }
+                            else
+                            {
+                                soundEffects.MakeQuestionUnlockSound(Camera.main.transform.position);
+                            }
                         }
                         else
                         {

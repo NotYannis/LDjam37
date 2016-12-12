@@ -6,14 +6,9 @@ using System.Collections.Generic;
 public class ActiveObject : QuestionDataScript {
     private QuestionDataScript mainQuestions;
     public List<Question> questions;
-
     int startY = -20;
 
     // Use this for initialization
-    void Awake()
-    {
-
-    }
 
     void Start () {
         mainQuestions = GameObject.Find("MainInterface").GetComponent<QuestionDataScript>();
@@ -33,6 +28,7 @@ public class ActiveObject : QuestionDataScript {
         }
         else
         {
+            soundEffects.MakeUnlockSomethingSound(Camera.main.transform.position);
             for(int i = 0; i < questions.Count; ++i)
             {
                 GameObject button = Instantiate(mainQuestions.buttonPrefab) as GameObject;

@@ -20,6 +20,7 @@ public class SoundEffectsHelper : MonoBehaviour
     public AudioSource deadSound;
     public AudioSource startSound;
     public AudioSource endSound;
+    public AudioSource unlockSomething;
 
 
     public List<GameObject> soundsPlaying;
@@ -100,6 +101,10 @@ public class SoundEffectsHelper : MonoBehaviour
         MakeSound(endSound, position, true);
     }
 
+    public void MakeUnlockSomethingSound(Vector3 position)
+    {
+        MakeSound(unlockSomething, position, true);
+    }
 
     /// <summary>
     /// Play a given sound

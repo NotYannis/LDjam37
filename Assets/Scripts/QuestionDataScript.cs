@@ -75,7 +75,8 @@ public class QuestionDataScript : MonoBehaviour {
 
             if (currentQuestion.activatedObject != "")
             {
-                if(currentQuestion.activatedObject == "FirstQuestions")
+                interfaceScript.unlockSomething = true;
+                if (currentQuestion.activatedObject == "FirstQuestions")
                 {
                     for(int i = 1; i < 5; ++i)
                     {
