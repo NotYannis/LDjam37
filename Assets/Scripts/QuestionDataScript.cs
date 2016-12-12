@@ -102,8 +102,8 @@ public class QuestionDataScript : MonoBehaviour {
                 //Last object case
                 if (currentQuestion.activatedObject == "DiskEnding")
                 {
-                    
                     GameObject.Find("DiskEnding").GetComponent<SpriteRenderer>().enabled = true;
+                    GameObject.Find("DiskEndingButton").SetActive(true);
                     GameObject.Find("DiskEnding").SetActive(false);
                     GameObject.Find("DiskTutoButton").SetActive(false);
                 }
