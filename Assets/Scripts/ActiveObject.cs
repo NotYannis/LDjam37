@@ -5,12 +5,19 @@ using System.Collections.Generic;
 
 public class ActiveObject : QuestionDataScript {
     private QuestionDataScript mainQuestions;
+    public GameObject fire;
+
     public List<Question> questions;
     int startY = -20;
 
     // Use this for initialization
+    void Awake(){
+        //DO NOT DELETE THIS
+    }
+
 
     void Start () {
+        soundEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
         mainQuestions = GameObject.Find("MainInterface").GetComponent<QuestionDataScript>();
     }
 	
@@ -23,7 +30,7 @@ public class ActiveObject : QuestionDataScript {
     {
         if(gameObject.name == "Poster")
         {
-            GameObject.Find("View/fire").SetActive(true);
+            fire.SetActive(true);
             GameObject.Find("Scripts").GetComponent<VictoryScript>().enabled = true;
         }
         else

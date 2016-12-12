@@ -6,8 +6,11 @@ using System.Collections.Generic;
 public class QuestionDataScript : MonoBehaviour {
     protected SoundEffectsHelper soundEffects;
     public GameObject buttonPrefab;
+    public GameObject diskEndingButtonPrefab;
     private MainInterfaceScript interfaceScript;
     private GameObject scripts; 
+
+
 
     [System.Serializable]
     public struct Question
@@ -62,18 +65,19 @@ public class QuestionDataScript : MonoBehaviour {
         {
             int index = buttonList.IndexOf(button);
             Question currentQuestion = currentQuestions[index];
-            if(questionsData.IndexOf(currentQuestion) == 69)
+
+            Debug.Log(questionsData.IndexOf(currentQuestion));
+            
+            if(questionsData.IndexOf(currentQuestion) == 68)
             {
                 interfaceScript.SetIsLastQuestion(true);
             }
             float clipTime = soundEffects.MakeQuestionVoices(questionsData.IndexOf(currentQuestion));
-            Debug.Log(clipTime);
-            Debug.Log(questionsData.IndexOf(currentQuestion));
 
             interfaceScript.SetIsAskingQuestion(true);
             interfaceScript.SetHasAnswer(currentQuestion.hasAnswer);
             interfaceScript.SetIsAffirmative(currentQuestion.isAffirmative);
-            interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
+            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
             {
@@ -98,6 +102,7 @@ public class QuestionDataScript : MonoBehaviour {
                 }
                 else
                 {
+                    Debug.Log("Activated Object :" + currentQuestion.activatedObject);
                     GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
                 }
 
@@ -105,8 +110,7 @@ public class QuestionDataScript : MonoBehaviour {
                 if (currentQuestion.activatedObject == "DiskEnding")
                 {
                     GameObject.Find("DiskEnding").GetComponent<SpriteRenderer>().enabled = true;
-                    GameObject.Find("DiskEndingButton").SetActive(true);
-                    GameObject.Find("DiskEnding").SetActive(false);
+                    diskEndingButtonPrefab.SetActive(true);
                     GameObject.Find("DiskTutoButton").SetActive(false);
                 }
             }

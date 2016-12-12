@@ -121,7 +121,6 @@ public class MainInterfaceScript : MonoBehaviour {
                     }
                 }
             }
-            Debug.Log(spiritTalking);
         }
 
         //Slide the menu on the game
@@ -154,7 +153,6 @@ public class MainInterfaceScript : MonoBehaviour {
     public void OnOuijaCall()
     {
         isAskingQuestion = false;
-        Debug.Log("CALL");
         if (hasAnswer)
         {
 

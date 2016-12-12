@@ -17,20 +17,19 @@ public class InteractionObject : MonoBehaviour {
 	
 	}
 
-    public void InteractWithObject()
+    private void InteractWithObject()
     {
-        
-        if (GetComponent<ActiveObject>().enabled)
+        if (gameObject.GetComponent<ActiveObject>().enabled)
         {
             soundEffects.MakeActivatedObjectSound(questionData.objectList.IndexOf(gameObject));
-            GetComponent<ActiveObject>().AddQuestionToButtonList();
-            GetComponent<ActiveObject>().enabled = false;
+            gameObject.GetComponent<ActiveObject>().AddQuestionToButtonList();
+            gameObject.GetComponent<ActiveObject>().enabled = false;
         }
         else
         {
             soundEffects.MakeDesactivatedObjectSound(questionData.objectList.IndexOf(gameObject));
         }
-        CreateSprite(GetComponent<SpriteRenderer>());
+        CreateSprite(gameObject.GetComponent<SpriteRenderer>());
     }
 
     private void CreateSprite(SpriteRenderer spr)

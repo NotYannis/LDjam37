@@ -24,8 +24,10 @@ public class EchapMenu : MonoBehaviour {
     void Start () {
         menuImage = GetComponentInChildren<Image>();
         menuText = GetComponentsInChildren<Text>();
-        isActive = false;
-        ToggleChild(false);
+        if(!isDeathMenu){
+            isActive = false;
+            ToggleChild(false);
+        }
 	}
 	
 	// Update is called once per frame
