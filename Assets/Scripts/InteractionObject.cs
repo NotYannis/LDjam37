@@ -26,7 +26,7 @@ public class InteractionObject : MonoBehaviour {
             GetComponent<ActiveObject>().AddQuestionToButtonList();
             GetComponent<ActiveObject>().enabled = false;
             CreateSprite(GetComponent<SpriteRenderer>());
-            GameObject.Find("RoomInterface/" + gameObject.name + "Button").SetActive(false);
+            //GameObject.Find("RoomInterface/" + gameObject.name + "Button").SetActive(false);
         }
         else
         {

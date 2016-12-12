@@ -71,6 +71,7 @@ public class QuestionDataScript : MonoBehaviour {
             interfaceScript.isAskingQuestion = true;
             interfaceScript.hasAnswer = currentQuestion.hasAnswer;
             interfaceScript.isAffirmative = currentQuestion.isAffirmative;
+            interfaceScript.spiritTalking = true;
             interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
