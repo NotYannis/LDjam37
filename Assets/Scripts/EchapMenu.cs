@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class EchapMenu : MonoBehaviour {
     private Text[] menuText;
-    private Image menuImage;
+    private Image[] menuImages;
 
     private float targetImageAlpha = 0.8f;
     public bool isActive;
@@ -22,7 +22,7 @@ public class EchapMenu : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        menuImage = GetComponentInChildren<Image>();
+        menuImages = GetComponentsInChildren<Image>();
         menuText = GetComponentsInChildren<Text>();
         if(!isDeathMenu){
             isActive = false;
@@ -65,9 +65,13 @@ public class EchapMenu : MonoBehaviour {
 
     private void fadeIn()
     {
-        if(menuImage.color.a < targetImageAlpha)
+        if (menuImages[menuImages.Length - 1].color.a < targetImageAlpha)
         {
-            menuImage.color = new Color(menuImage.color.r, menuImage.color.g, menuImage.color.b, menuImage.color.a + backgroundFadeSpeed);
+            for (int i = 0; i < menuImages.Length; ++i)
+            {
+                menuImages[i].color = new Color(menuImages[i].color.r, menuImages[i].color.g, menuImages[i].color.b, menuImages[i].color.a + backgroundFadeSpeed);
+
+            }
         }
 
         if(menuText[menuText.Length - 1].color.a < 1)
@@ -85,9 +89,13 @@ public class EchapMenu : MonoBehaviour {
 
     private void fadeOut()
     {
-        if (menuImage.color.a > 0.0f)
+        if (menuImages[menuImages.Length - 1].color.a > 0.0f)
         {
-            menuImage.color = new Color(menuImage.color.r, menuImage.color.g, menuImage.color.b, menuImage.color.a - backgroundFadeSpeed);
+            for (int i = 0; i < menuImages.Length; ++i)
+            {
+                menuImages[i].color = new Color(menuImages[i].color.r, menuImages[i].color.g, menuImages[i].color.b, menuImages[i].color.a - backgroundFadeSpeed);
+
+            }
         }
         if (menuText[0].color.a > 0.0f)
         {
@@ -106,9 +114,9 @@ public class EchapMenu : MonoBehaviour {
 
     private void deathFadeIn()
     {
-        if (menuImage.color.a < targetImageAlpha)
+        if (menuImages[0].color.a < targetImageAlpha)
         {
-            menuImage.color = new Color(menuImage.color.r, menuImage.color.g, menuImage.color.b, menuImage.color.a + backgroundFadeSpeed);
+            menuImages[0].color = new Color(menuImages[0].color.r, menuImages[0].color.g, menuImages[0].color.b, menuImages[0].color.a + backgroundFadeSpeed);
         }
         else if(deathTextIndex < menuText.Length)
         {

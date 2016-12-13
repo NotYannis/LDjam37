@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class ActiveObject : QuestionDataScript {
     private QuestionDataScript mainQuestions;
     public GameObject fire;
+    public GameObject fire2;
+
     public int phase;
     public List<Question> questions;
     int startY = -20;
@@ -46,6 +48,8 @@ public class ActiveObject : QuestionDataScript {
         if(gameObject.name == "Poster")
         {
             fire.SetActive(true);
+            fire2.SetActive(true);
+            soundEffects.StopPaperMovement();
             GameObject.Find("Scripts").GetComponent<VictoryScript>().enabled = true;
         }
         else

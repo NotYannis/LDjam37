@@ -102,8 +102,10 @@ public class MainInterfaceScript : MonoBehaviour {
                         soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
                         if (isLastQuestion)
                         {
-                            soundEffects.MakeEndSound(Camera.main.transform.position);
-                            scripts.GetComponent<ScreenShake>().StartShaking();
+                            soundEffects.Invoke("MakePaperMouvement", 4.0f);
+                            soundEffects.Invoke("MakeEndSound", 4.0f);
+                            soundEffects.Invoke("MakeEndMusic", 4.0f);
+                            scripts.GetComponent<ScreenShake>().Invoke("StartShaking", 2.0f);
                             scripts.GetComponent<PosterScript>().enabled = true;
                             scripts.GetComponent<PosterScript>().PosterVener();
                         }

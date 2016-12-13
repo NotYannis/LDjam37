@@ -10,6 +10,8 @@ public class QuestionDataScript : MonoBehaviour {
     private MainInterfaceScript interfaceScript;
     private GameObject scripts;
 
+    public GameObject newQuestionSprite;
+
     public int generalPhase = -1;
 
     [System.Serializable]
@@ -78,7 +80,7 @@ public class QuestionDataScript : MonoBehaviour {
             interfaceScript.SetIsAskingQuestion(true);
             interfaceScript.SetHasAnswer(currentQuestion.hasAnswer);
             interfaceScript.SetIsAffirmative(currentQuestion.isAffirmative);
-            interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
+            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
             {
@@ -119,6 +121,8 @@ public class QuestionDataScript : MonoBehaviour {
                 else
                 {
                     GameObject.Find("Views/InteractiveObjects/" + currentQuestion.activatedObject).GetComponent<ActiveObject>().enabled = true;
+                    GameObject newQuestionSpr = Instantiate(newQuestionSprite, GameObject.Find("newQuestions").transform, false) as GameObject;
+                    Destroy(newQuestionSpr, 5.0f);
                 }
 
                 //Last object case

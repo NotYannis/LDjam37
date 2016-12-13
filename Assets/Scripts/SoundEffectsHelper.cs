@@ -18,6 +18,8 @@ public class SoundEffectsHelper : MonoBehaviour
     public AudioSource unlockSomething;
     public AudioSource ambianceMusic;
     public AudioSource endMusic;
+    public AudioSource firePaper;
+    public AudioSource paperMouvement;
     public AudioSource[] answerSpiritSounds = new AudioSource[3];
     public AudioSource[] droneSounds = new AudioSource[3];
     public AudioSource[] objectActivatedSounds = new AudioSource[21];
@@ -98,9 +100,9 @@ public class SoundEffectsHelper : MonoBehaviour
         MakeSound(startSound, position, true);
     }
 
-    public void MakeEndSound(Vector3 position)
+    public void MakeEndSound()
     {
-        MakeSound(endSound, position, true);
+        MakeSound(endSound, Camera.main.transform.position, true);
     }
 
     public void MakeUnlockSomethingSound(Vector3 position)
@@ -121,7 +123,22 @@ public class SoundEffectsHelper : MonoBehaviour
     public void MakeJingleMusic(int index)
     {
         MakeSound(jingleMusic[index], Camera.main.transform.position, true);
+    }
 
+    public void MakePaperMouvement()
+    {
+        MakeSound(paperMouvement, Camera.main.transform.position, true);
+    }
+
+    public void MakePaperBurning()
+    {
+        MakeSound(firePaper, Camera.main.transform.position, true);
+    }
+
+    public void StopPaperMovement()
+    {
+        Destroy(GameObject.Find("paperMouvement(Clone)"));
+        MakePaperBurning();
     }
 
     /// <summary>
@@ -147,6 +164,9 @@ public class SoundEffectsHelper : MonoBehaviour
             soundDuration = originalClip.clip.length;
         }
         soundsPlaying.Add(soundPlaying);
-        Destroy(soundPlaying, soundDuration);
+        if(soundPlaying.name != "paperFire(Clone)" || soundPlaying.name != "paperMouvement(Clone)")
+        {
+            Destroy(soundPlaying, soundDuration);
+        }
     }
 }
