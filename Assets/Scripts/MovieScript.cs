@@ -15,11 +15,18 @@ public class MovieScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         movieTime -= Time.deltaTime;
-        if(!isEnd && (movieTime <= 0.0f || Input.GetKeyDown(KeyCode.Escape)))
+        if(!isEnd)
         {
-            SceneManager.LoadSceneAsync(1);
+            if(movieTime <= 0.0f)
+            {
+                SceneManager.LoadScene(1);
+            }
+            else if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadSceneAsync(1);
+            }
         }
-        if (isEnd)
+        if (isEnd && movieTime <= 0.0f)
         {
             Application.Quit();
         }

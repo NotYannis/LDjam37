@@ -46,7 +46,7 @@ public class InteractionObject : MonoBehaviour {
         Vector3 pos = Camera.main.transform.position;
         SpriteRenderer objectFound = Instantiate(spr, new Vector3(pos.x, pos.y, 0.0f), Quaternion.identity) as SpriteRenderer;
         objectFound.transform.localScale = new Vector3(1, 1, 1);
-        if(gameObject.name != "Poster")
+        if(gameObject.name != "Poster" || GameObject.Find("Poster").GetComponent<Animator>().enabled == false)
         {
             Destroy(objectFound.gameObject, 2.0f);
         }

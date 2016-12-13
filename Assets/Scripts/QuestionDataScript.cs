@@ -80,7 +80,7 @@ public class QuestionDataScript : MonoBehaviour {
             interfaceScript.SetIsAskingQuestion(true);
             interfaceScript.SetHasAnswer(currentQuestion.hasAnswer);
             interfaceScript.SetIsAffirmative(currentQuestion.isAffirmative);
-            interfaceScript.Invoke("OnOuijaCall", 0.0f); //Add clipaudio timer
+            interfaceScript.Invoke("OnOuijaCall", clipTime); //Add clipaudio timer
 
             if (currentQuestion.activatedObject != "")
             {

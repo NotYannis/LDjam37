@@ -7,7 +7,7 @@ public class DeathScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        soundsEffects = GameObject.Find("Sounds").GetComponent<SoundEffectsHelper>();
 	}
 	
 	// Update is called once per frame
@@ -16,6 +16,7 @@ public class DeathScript : MonoBehaviour {
 
     public void Die()
     {
-        Instantiate(deathMenu);        
+        Instantiate(deathMenu);
+        soundsEffects.MakeDeadSound(Camera.main.transform.position);
     }
 }
