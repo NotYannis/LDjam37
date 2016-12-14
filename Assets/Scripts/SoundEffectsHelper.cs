@@ -28,7 +28,6 @@ public class SoundEffectsHelper : MonoBehaviour
     public AudioSource[] jingleMusic = new AudioSource[9];
 
 
-    public List<GameObject> soundsPlaying;
 
     void Awake()
     {
@@ -38,26 +37,25 @@ public class SoundEffectsHelper : MonoBehaviour
             Debug.LogError("Multiple instances of SoundEffectsHelper!");
         }
         Instance = this;
-        soundsPlaying = new List<GameObject>();
     }
 
     public void MakeAnswerSpiritSound(Vector3 position)
     {
         int sound = Random.Range(0, 3);
-        MakeSound(answerSpiritSounds[sound], position, true);
+        MakeSound(answerSpiritSounds[sound], position, false);
     }
 
     public void MakeDroneSound(Vector3 position)
     {
         int sound = Random.Range(0, 3);
-        MakeSound(droneSounds[sound], position, true);
+        MakeSound(droneSounds[sound], position, false);
     }
 
     public void MakeActivatedObjectSound(int index)
     {
         if(objectActivatedSounds[index] != null)
         {
-            MakeSound(objectActivatedSounds[index], Camera.main.transform.position, true);
+            MakeSound(objectActivatedSounds[index], Camera.main.transform.position, false);
         }
     }
 
@@ -65,7 +63,7 @@ public class SoundEffectsHelper : MonoBehaviour
     {
         if(objectDesactivatedSounds[index] != null)
         {
-            MakeSound(objectDesactivatedSounds[index], Camera.main.transform.position, true);
+            MakeSound(objectDesactivatedSounds[index], Camera.main.transform.position, false);
         }
     }
 
@@ -74,7 +72,7 @@ public class SoundEffectsHelper : MonoBehaviour
         float clipTime = 0.0f;
         if(questionVoices[index] != null)
         {
-           MakeSound(questionVoices[index], Camera.main.transform.position, true);
+           MakeSound(questionVoices[index], Camera.main.transform.position, false);
            clipTime = questionVoices[index].clip.length;
         }
         return clipTime;
@@ -82,37 +80,37 @@ public class SoundEffectsHelper : MonoBehaviour
 
     public void MakeWrongQuestionSound(Vector3 position)
     {
-        MakeSound(wrongQuestion, position, true);
+        MakeSound(wrongQuestion, position, false);
     }
 
     public void MakeQuestionUnlockSound(Vector3 position)
     {
-        MakeSound(questionUnlock, position, true);
+        MakeSound(questionUnlock, position, false);
     }
 
     public void MakeDeadSound(Vector3 position)
     {
-        MakeSound(deadSound, position, true);
+        MakeSound(deadSound, position, false);
     }
 
     public void MakeStartSound(Vector3 position)
     {
-        MakeSound(startSound, position, true);
+        MakeSound(startSound, position, false);
     }
 
     public void MakeEndSound()
     {
-        MakeSound(endSound, Camera.main.transform.position, true);
+        MakeSound(endSound, Camera.main.transform.position, false);
     }
 
     public void MakeUnlockSomethingSound(Vector3 position)
     {
-        MakeSound(unlockSomething, position, true);
+        MakeSound(unlockSomething, position, false);
     }
 
     public void MakeEndMusic()
     {
-        MakeSound(endMusic, Camera.main.transform.position, true);
+        MakeSound(endMusic, Camera.main.transform.position, false);
     }
 
     public void MakeAmbianceMusic()
@@ -122,7 +120,7 @@ public class SoundEffectsHelper : MonoBehaviour
 
     public void MakeJingleMusic(int index)
     {
-        MakeSound(jingleMusic[index], Camera.main.transform.position, true);
+        MakeSound(jingleMusic[index], Camera.main.transform.position, false);
     }
 
     public void MakePaperMouvement()
@@ -147,24 +145,16 @@ public class SoundEffectsHelper : MonoBehaviour
     /// <param name="originalClip"></param>
     /// <param name="position"></param>
 
-    private void MakeSound(AudioSource originalClip, Vector3 position, bool soundIn2D)
+    private void MakeSound(AudioSource originalClip, Vector3 position, bool loop)
     {
         GameObject soundPlaying;
         float soundDuration = 0.0f;
-        if (soundIn2D)
-        {
-            soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
-            soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
-            soundDuration = originalClip.clip.length;
-        }
-        else
-        {
-            soundPlaying = Instantiate(originalClip, position, Quaternion.identity, Camera.main.transform) as GameObject;
-            soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
-            soundDuration = originalClip.clip.length;
-        }
-        soundsPlaying.Add(soundPlaying);
-        if(soundPlaying.name != "paperFire(Clone)" || soundPlaying.name != "paperMouvement(Clone)")
+
+        soundPlaying = Instantiate(originalClip, Camera.main.transform, false) as GameObject;
+        soundPlaying = GameObject.Find(originalClip.name + "(Clone)");
+        soundDuration = originalClip.clip.length;
+
+        if(!loop)
         {
             Destroy(soundPlaying, soundDuration);
         }

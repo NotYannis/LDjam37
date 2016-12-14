@@ -5,8 +5,10 @@ using System.Linq;
 
 public class HangManScript : MonoBehaviour {
 
-    private List<GameObject> hangManDisabledParts;
+    public List<GameObject> hangManDisabledParts;
     private List<GameObject> hangManEnabledParts;
+
+
 
 	// Use this for initialization
 	void Start () {

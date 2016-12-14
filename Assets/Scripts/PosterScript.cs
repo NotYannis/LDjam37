@@ -17,21 +17,21 @@ public class PosterScript : MonoBehaviour {
 	void Update () {
         if(animCooldown <= 0.0f)
         {
-            animCooldown = Random.Range(8.0f, 10.0f);
+            animCooldown = Random.Range(20.0f, 30.0f);
             int rand = (int)Random.Range(0, 2);
             if (rand == 0)
             {
-                posterAnim.SetTrigger("dir1");
+                posterAnim.SetBool("dir1", true);
             }
             else
             {
-                posterAnim.SetTrigger("dir2");
+                posterAnim.SetBool("dir2", true);
             }
         }
         else
         {
-            posterAnim.ResetTrigger("dir1");
-            posterAnim.ResetTrigger("dir2");
+            posterAnim.SetBool("dir1", false);
+            posterAnim.SetBool("dir2", false);
             animCooldown -= Time.deltaTime;
         }
     }

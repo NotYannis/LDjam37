@@ -10,6 +10,8 @@ public class MainInterfaceScript : MonoBehaviour {
     GameObject planchette;
     GameObject scripts;
 
+    public GameObject newQuestionSprite;
+
     Vector3 toPositionMenu;
     Vector3 toPositionPlanchette;
 
@@ -100,7 +102,7 @@ public class MainInterfaceScript : MonoBehaviour {
                         hangMan.EnableHangManPart();
                         addHangManPart = false;
                         soundEffects.MakeWrongQuestionSound(Camera.main.transform.position);
-                        if (isLastQuestion)
+                        if (isLastQuestion && hangMan.hangManDisabledParts.Count != 1)
                         {
                             soundEffects.Invoke("MakePaperMouvement", 4.0f);
                             soundEffects.Invoke("MakeEndSound", 4.0f);
@@ -115,6 +117,8 @@ public class MainInterfaceScript : MonoBehaviour {
                         if (unlockSomething)
                         {
                             soundEffects.MakeUnlockSomethingSound(Camera.main.transform.position);
+                            GameObject newQuestionSpr = Instantiate(newQuestionSprite, GameObject.Find("newQuestions").transform, false) as GameObject;
+                            Destroy(newQuestionSpr, 5.0f);
                             unlockSomething = false;
                         }
                     }

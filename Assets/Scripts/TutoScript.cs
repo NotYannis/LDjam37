@@ -16,7 +16,6 @@ public class TutoScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         tutotimer -= Time.deltaTime;
-        Debug.Log(tutotimer);
         if(tuto.color.a > 0.0f && tutotimer < 0.0f)
         {
             tuto.color = new Color(255, 255, 255, tuto.color.a - 0.03f);
